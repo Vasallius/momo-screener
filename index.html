@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Data</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <button id="fetch-data-btn">Fetch Data</button>
+    <button id="display-data-btn">Display FOBlist & FODlist</button>
+    <div id="results"></div>
+
+    <script>
+        $(document).ready(function () {
+            $("#fetch-data-btn").click(function () {
+                $.post("/fetch_data", {}, function (data) {
+                    alert(data.result);
+                });
+            });
+
+            $("#display-data-btn").click(function () {
+                $.get("/display_data", function (data) {
+                    // Display FOBlist and FODlist in simple cards
+                    let html = `<h3>FOBlist:</h3><ul>`;
+                    data.FOBlist.forEach(item => {
+                        html += `<li>${item}</li>`;
+                    });
+                    html += `</ul><h3>FODlist:</h3><ul>`;
+                    data.FODlist.forEach(item => {
+                        html += `<li>${item}</li>`;
+                    });
+                    html += `</ul>`;
+                    $("#results").html(html);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
