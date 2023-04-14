@@ -1,0 +1,7 @@
+name: your-project-name
+env: python-3.9
+services:
+  web:
+    start: python app.py
+    env:
+      PORT: 8080
